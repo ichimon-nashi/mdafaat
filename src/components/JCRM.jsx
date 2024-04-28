@@ -26,13 +26,13 @@ const JCRM = () => {
                 >
                     {item.description.split("\n").map(description => {
                         return (
-                            <p className="scenarioDescription">{description}</p>
+                            <p className="scenarioDescription" key={description}>{description}</p>
                         )
                     })}
                     <ul className="crewAction">
                         {item.action.map((subitem, subitemIndex) => {
                             return (
-                                <li key={subitemIndex}
+                                <li key={subitemIndex} className="listItem"
                                     ><RiCornerDownRightFill className={`listIcon ${regex.test(subitem) ? "hide" : ""}`}/> {subitem}
                                 </li>
                             )

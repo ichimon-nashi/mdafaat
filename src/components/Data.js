@@ -149,35 +149,124 @@ export const jsepData = [
     },
 ]
 
-export const fireExtinguisherData = [
-    {
+export const emergencyEquipmentData = [{
+    id: "emer01",
+    equipmentType: "滅火器 Fire Extinguisher",
+    itemCriteria: [{
+        "criteria": "",
+        "ATR": "ATR",
+        "B738": "B738"
+    },{
         "criteria": "CCOM對應章節",
         "ATR": "10.2.3",
         "B738": "11.2.7"
-    },
-    {
+    },{
         "criteria": "規格",
         "ATR": "Halon 1211\nHAFEX(57~61機)",
         "B738": "BCF"
-    },
-    {
+    },{
         "criteria": "數量位置",
         "ATR": "駕駛艙 x 1\n2LDH x 1\n2RDH x 1",
-        "B738": "駕駛艙 x 1\n1LS x 2\n3L 座位上方 x 1"
-    },
-    {
+        "B738": "駕駛艙 x 1\n1LS x 2\n3L座位上方 x 1"
+    },{
         "criteria": "檢查方式",
         "ATR": "數量、位置正確\n固定妥當\n插銷叉妥\n壓力指針(綠色範圍)\n有效期內",
-        "B738": "數量、位置正確\n固定妥當\n插銷叉妥\n壓力指針(綠色範圍)\n有效期內"
-    },
-    {
+        "B738": null,
+    },{
         "criteria": "可用時間",
-        "ATR": "Halon:約10秒\nHAFEX:約8秒",
-        "B738": "約8-10秒"
-    },
-    {
+        "ATR": "Halon: 約10秒\nHAFEX: 約8秒",
+        "B738": "約8~10秒"
+    },{
         "criteria": "噴灑距離",
-        "ATR": "5~7呎(1.5~2m)",
+        "ATR": "5-7呎 (1.5~2m)",
+        "B738": "1.5~2m"
+    },],
+}, {
+    id: "emer02",
+    equipmentType: "水滅火器 Water Extinguisher",
+    itemCriteria: [{
+        "criteria": "",
+        "ATR": "ATR",
+        "B738": "B738"
+    },{
+        "criteria": "CCOM對應章節",
+        "ATR": "10.2.3",
+        "B738": "11.2.8"
+    },{
+        "criteria": "規格",
+        "ATR": "Walter Kidde",
+        "B738": null,
+    },{
+        "criteria": "數量位置",
+        "ATR": "1LHS bin x 1",
+        "B738": "3R 座位上方 x 1"
+    },{
+        "criteria": "檢查方式",
+        "ATR": "數量、位置正確\n固定妥當\n有保險鐵絲(safety seal)\n有效期內",
+        "B738": null,
+    },{
+        "criteria": "可用時間",
+        "ATR": "Halon: 約30~40秒",
+        "B738": "約35秒"
+    },{
+        "criteria": "噴灑距離",
+        "ATR": "20呎 (6.1m)",
         "B738": "1~1.5m"
-    }
-]
+    },],
+}, {
+    id: "emer03",
+    equipmentType: "防煙面罩 PBE",
+    itemCriteria: [{
+        "criteria": "",
+        "ATR": "ATR",
+        "B738": "B738"
+    },{
+        "criteria": "CCOM對應章節",
+        "ATR": "10.2.4",
+        "B738": "11.2.9"
+    },{
+        "criteria": "規格",
+        "ATR": "Puritan-Bennett",
+        "B738": "SCOTT Smoke Hood",
+    },{
+        "criteria": "數量位置",
+        "ATR": "駕駛艙 x 1\n1LHS bin x 1\n2LDH x 1\n2RDH x1",
+        "B738": "駕駛艙 x 1\n1LS x 2\n3L座位下方 x 2\n3R座位下方 x 2"
+    },{
+        "criteria": "檢查方式",
+        "ATR": "數量、位置正確\n固定妥當\n外殼無破損\n真空包裝未膨脹(ATR)\nSEAL完整\n視窗不是粉紅色(B738)\n有效期內",
+        "B738": null,
+    },{
+        "criteria": "可用時間",
+        "ATR": "約15分",
+        "B738": null,
+    },]
+}, {
+    id: "emer04",
+    equipmentType: "手提式氧氣瓶 POB",
+    itemCriteria: [{
+        "criteria": "",
+        "ATR": "ATR",
+        "B738": "B738"
+    },{
+        "criteria": "CCOM對應章節",
+        "ATR": "10.2.8",
+        "B738": "11.2.6"
+    },{
+        "criteria": "規格",
+        "ATR": "SCOTT 5500",
+        "B738": "SCOTT",
+    },{
+        "criteria": "數量位置",
+        "ATR": "F1座位下方 x 1\nF2座位下方 x1",
+        "B738": "1LS x 2\n31排牆 x 3(B738*)\n3LDH x2(B738A)\n3RDH x1(B738A)"
+    },{
+        "criteria": "檢查方式",
+        "ATR": "數量、位置正確\n固定妥當\n壓力指針(紅色範圍)\n面罩數量\n連接HIGH端(B738)\n有效期內",
+        "B738": null,
+    },{
+        "criteria": "可用時間",
+        "ATR": "約30分(13,000ft)",
+        "B738": "約60分(HIGH 4LPM)"
+    },]
+}]
