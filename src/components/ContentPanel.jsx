@@ -1,5 +1,5 @@
 import JCRM from "./JCRM";
-import EmergencyEquipment from "./Equipment";
+import EmergencyEquipment from "./EmergencyEquipment";
 import JSEP from "./JSEP";
 import OralTest from "./OralTest";
 

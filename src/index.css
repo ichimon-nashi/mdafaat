@@ -16,7 +16,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    /* outline: 0.1px solid red; */
+    outline: 0.1px solid red;
 }
 
 /* App wrapper */
@@ -56,7 +56,6 @@ ul.tab-nav {
 ul.tab-nav li {
     width: 50%;
     padding: 1rem;
-    list-style: none;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s;
@@ -96,7 +95,7 @@ ul.tab-nav li.active {
     overflow: hidden;
 }
 
-.accordion {
+.accordionButton {
     width: 100%;
     text-align: left;
     padding: 20px 25px;
@@ -112,12 +111,12 @@ ul.tab-nav li.active {
     border-top-right-radius: 0.5rem;
 }
 
-.accordion:hover {
+.accordionButton:hover {
     color: var(--darkBlue);
     background: var(--gray);
 }
 
-.accordion.active {
+.accordionButton.active {
     background-image: radial-gradient(circle, #86d1f7, rgba(79,185,249,0.3), rgba(0,160,250,0.5), rgba(0,131,246,0.4), rgba(37,99,235,0.1));
 }
 
@@ -131,24 +130,33 @@ ul.tab-nav li.active {
     color: var(--darkBlue);
 }
 
-.description-container {
+ul li {
+    list-style: none;
+}
+
+.listIcon {
+    color: red;
+    font-size: 1.2rem;
+}
+
+.listIcon.hide {
+    display: none;
+}
+
+.scenario-container {
     padding: 0 1rem;
     transition: height .7s ease-in-out;
     height: 0;
 }
 
-.description-container.active {
+.scenario-container.active {
     height: fit-content;
 }
 
-.description-content {
+.scenarioDescription {
     padding: 1rem 0;
-    font-size: 20px;
+    font-size: 1.25rem;
     display: block;
-    /* TEST CONTENT */
-    /* width: 80%;
-    text-align: center;
-    margin: auto; */
 }
 
 .scenarioImg {
@@ -158,8 +166,23 @@ ul.tab-nav li.active {
     width: 60%;
 }
 
-/* List item */
-.listItem {
+.crewAction {
     font-size: 1.1rem;
     margin: 1rem;
+}
+
+@media only screen and (max-width:500px) {
+    .accordionTitle {
+        font-size: 1.1rem;
+    }
+    .scenarioDescription {
+        padding: 0.5rem 0;
+    }
+    .scenarioImg {
+        width: 100%;
+    }
+    .crewAction {
+        font-size: 1rem;
+        margin: 1rem 0 1rem 0;
+    }
 }

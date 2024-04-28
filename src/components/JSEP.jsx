@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { RiArrowDropDownLine } from 'react-icons/ri';
+import { RiArrowDropDownLine, RiCornerDownRightFill } from 'react-icons/ri';
 import { jsepData } from "./Data";
 
 const JSEP = () => {
+    const regex = /^(CCOM)|^[(-]/;
 
     const [activeIndex, setActiveIndex] = useState(null);
     
@@ -14,25 +15,27 @@ const JSEP = () => {
         return (
             <div className="contentWrapper" key={item.id}>
                 <button
-                    className={`accordion ${activeIndex === index ? "active" : ""}`}
+                    className={`accordionButton ${activeIndex === index ? "active" : ""}`}
                     onClick={() => handleItemClick(index)}
                 >
-                    <p className="title-content">{item.title}</p>
+                    <p className="accordionTitle">{item.title}</p>
                     <RiArrowDropDownLine className={`arrow ${activeIndex === index ? "active" : ""}`} />
                 </button>
                 <div
-                    className={`description-container ${activeIndex === index ? "active" : ""}`}
+                    className={`scenario-container ${activeIndex === index ? "active" : ""}`}
                 >
                     {item.description.split("\n").map(description => {
                         return (
-                            <p className="description-content">{description}</p>
+                            <p className="scenarioDescription">{description}</p>
                         )
                     })}
                     <img className="scenarioImg" src={item.imgSrc}/>
-                    <ul className="listItem">
+                    <ul className="crewAction">
                         {item.action.map((subitem, subitemIndex) => {
                             return (
-                                <li key={subitemIndex}>{subitem}</li>
+                                <li key={subitemIndex}
+                                    ><RiCornerDownRightFill className={`listIcon ${regex.test(subitem) ? "hide" : ""}`}/> {subitem}
+                                </li>
                             )
 
                         })}

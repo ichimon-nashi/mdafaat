@@ -6,7 +6,7 @@ const Header = ({ activeTab, handleActiveTab }) => {
 
     useEffect(() => {
       window.addEventListener("scroll", () => {
-        setScroll(window.scrollY > 10);
+        setScroll(window.scrollY > 5);
       });
     });
 
@@ -24,20 +24,20 @@ const Header = ({ activeTab, handleActiveTab }) => {
                     className={activeTab === "Emergency Equipment" ? "active" : ""}
                     onClick={() => handleActiveTab("Emergency Equipment")}
                 >
-                    Emergency Equipment
+                    緊急裝備
                 </li>
                 <li 
                     className={activeTab === "JSEP" ? "active" : ""}
                     onClick={() => handleActiveTab("JSEP")}
                 >
-                    JSEP
+                    演練情境
                 </li>
-                <li 
+                {/* <li 
                     className={activeTab === "Oral Test" ? "active" : ""}
                     onClick={() => handleActiveTab("Oral Test")}
                 >
                     Oral Test
-                </li>
+                </li> */}
             </ul>
         </div>
     )

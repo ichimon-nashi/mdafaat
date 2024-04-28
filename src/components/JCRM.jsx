@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { RiArrowDropDownLine } from 'react-icons/ri';
+import { RiArrowDropDownLine, RiCornerDownRightFill } from 'react-icons/ri';
 import { jcrmData } from "./Data";
 
 const JCRM = () => {
+    const regex = /^(CCOM)|^[(-]/;
 
     const [activeIndex, setActiveIndex] = useState(null);
     
@@ -14,20 +15,26 @@ const JCRM = () => {
         return (
             <div className="contentWrapper" key={item.id}>
                 <button
-                    className={`accordion ${activeIndex === index ? "active" : ""}`}
+                    className={`accordionButton ${activeIndex === index ? "active" : ""}`}
                     onClick={() => handleItemClick(index)}
                 >
-                    <p className="title-content">{item.title}</p>
+                    <p className="accordionTitle">{item.title}</p>
                     <RiArrowDropDownLine className={`arrow ${activeIndex === index ? "active" : ""}`} />
                 </button>
                 <div
-                    className={`description-container ${activeIndex === index ? "active" : ""}`}
+                    className={`scenario-container ${activeIndex === index ? "active" : ""}`}
                 >
-                    <p className="description-content">{item.description}</p>
+                    {item.description.split("\n").map(description => {
+                        return (
+                            <p className="scenarioDescription">{description}</p>
+                        )
+                    })}
                     <ul className="crewAction">
-                        {item.action.map((subitem, index) => {
+                        {item.action.map((subitem, subitemIndex) => {
                             return (
-                                <li key={index}>{subitem}</li>
+                                <li key={subitemIndex}
+                                    ><RiCornerDownRightFill className={`listIcon ${regex.test(subitem) ? "hide" : ""}`}/> {subitem}
+                                </li>
                             )
 
                         })}
