@@ -11,7 +11,7 @@ const EmergencyEquipment = () => {
     };
 
     const emergencyEquipmentList = emergencyEquipmentData.map((item, index) => {
-        
+            
         return (
             <div className="contentWrapper" key={item.id}>
                 <button
@@ -25,16 +25,19 @@ const EmergencyEquipment = () => {
                     className={`scenario-container ${activeIndex === index ? "active" : ""}`}
                 >
                     {item.itemCriteria.map((subitem, subitemIndex) => {
+
                         return (
-                            <table className="equipmentTable" key={subitemIndex}>
-                                <tbody>
-                                    <tr>
-                                        <td>{subitem.criteria}</td>
-                                        <td>{subitem.ATR}</td>
-                                        <td>{subitem.B738}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div className="gridRow" key={subitemIndex}>
+                                <div className="grid-col">
+                                    {subitem.criteria}
+                                </div>
+                                <div className="grid-col">
+                                    <div>{subitem.ATR}</div>
+                                </div>
+                                <div className="grid-col">
+                                    {subitem.B738}
+                                </div>
+                            </div>
                         )
                     })}
                 </div>
@@ -43,9 +46,9 @@ const EmergencyEquipment = () => {
     })
 
     return (
-        <>
+        <div className="gridTable">
             {emergencyEquipmentList}
-        </>
+        </div>
     )
 }
 

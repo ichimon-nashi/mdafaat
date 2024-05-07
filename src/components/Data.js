@@ -162,7 +162,8 @@ export const emergencyEquipmentData = [{
         "B738": "11.2.7"
     },{
         "criteria": "規格",
-        "ATR": "Halon 1211\nHAFEX(57~61機)",
+        // "ATR": "Halon 1211\nHAFEX(57~61機)",
+        "ATR": ["Halon 1211","HAFEX(57~61機)"],
         "B738": "BCF"
     },{
         "criteria": "數量位置",
@@ -270,3 +271,14 @@ export const emergencyEquipmentData = [{
         "B738": "約60分(HIGH 4LPM)"
     },]
 }]
+
+// export const emergencyEquipmentData = [
+//     [
+//         "",
+//         "ATR",
+//         "B738",
+//     ],
+//     [
+
+//     ]
+// ]
