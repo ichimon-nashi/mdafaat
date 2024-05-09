@@ -325,6 +325,91 @@ const EmergencyEquipment = () => {
                     </div>
                 </div>
             </div>
+
+            {/* 緊急定位發報器 ELT */}
+            <div className="contentWrapper">
+                <button
+                    className={`accordionButton ${activeIndex === "elt" ? "active" : ""}`}
+                    onClick={() => handleItemClick("elt")}
+                >
+                    <p className="accordionTitle">緊急定位發報器 ELT</p>
+                    <RiArrowDropDownLine className={`arrow ${activeIndex === "elt" ? "active" : ""}`} />
+                </button>
+                <div
+                    className={`scenario-container ${activeIndex === "elt" ? "active" : ""}`}
+                >
+                    <div className="gridRow">
+                        <div className="grid-col"></div>
+                        <div className="grid-col">ATR</div>
+                        <div className="grid-col">B738</div>
+                    </div>
+                    <div className="gridRow">
+                        <div className="grid-col">CCOM對應章節</div>
+                        <div className="grid-col">10.2.6</div>
+                        <div className="grid-col">11.2.3</div>
+                    </div>
+                    <div className="gridRow">
+                        <div className="grid-col">規格</div>
+                        <div className="grid-col">
+                            ADT406S
+                        </div>
+                        <div className="grid-col">
+                            Honeywell RESCU 406SE
+                            <br />
+                            Honeywell RESCU 406SG (B-18653、B-18667)
+                        </div>
+                    </div>
+                    <div className="gridRow">
+                        <div className="grid-col">數量位置</div>
+                        <div className="grid-col">
+                            19AC bin x 1
+                        </div>
+                        <div className="grid-col">
+                            1LS x 1
+                            <br />
+                            2L bin x 1
+                        </div>
+                    </div>
+                    <div className="gridRow">
+                        <div className="grid-col">檢查方式</div>
+                        <div className="grid-col colspan2">
+                            數量、位置正確
+                            <br />
+                            固定妥當
+                            <br />
+                            有效期內
+                        </div>
+                    </div>
+                    <div className="gridRow">
+                        <div className="grid-col">可用時間</div>
+                        <div className="grid-col">
+                            121.5 MHz、243 MHz: 至少48小時
+                            <br />
+                            406 MHz: 24小時
+                        </div>
+                        <div className="grid-col">
+                            <div className="row">
+                                <div>
+                                    <span>406SE:</span>
+                                    <br />
+                                    121.5 MHz、243 MHz: 至少50小時
+                                    <br />
+                                    406 MHz: 24小時
+                                </div>
+                                <div>
+                                    <span>406SG:</span>
+                                    <br />
+                                    121.5 MHz: 50小時
+                                    <br />
+                                    406 MHz: 24小時
+                                    <br />
+                                    GPS: 約8小時
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
