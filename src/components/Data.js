@@ -61,7 +61,7 @@ export const jsepData = [
             "CCOM對應章節: Ch.4.4/9.4",
             "前艙下達:『EMERGENCY DESCENT, EMERGENCY DESECENT』。",
             "立即就近找座位坐或蹲下，繫緊安全帶，(B738:拉下面罩)。",
-            "ATR喊:『留在座位上，繫好安全帶;REMAIN SEATED，FASTEN SEAT BELT』; B738喊:『拉下面罩，罩住口鼻，繫好安全帶 PLACE MASK ON NOSE AND MOUTH, FASTEN THE SEATBELT』。",
+            "ATR喊:『留在座位上，繫好安全帶 REMAIN SEATED，FASTEN SEAT BELT』; B738喊:『拉下面罩，罩住口鼻，繫好安全帶 PLACE MASK ON NOSE AND MOUTH, FASTEN THE SEATBELT』。",
             "抵達安全高度『CABIN CREW 10,000』。",
             "攜帶POB巡艙及廁所，向座艙長/前艙回報: 1️⃣ 飛機狀況 2️⃣ 旅客狀況 3️⃣ 組員狀況。",
             "爲避免阻礙緊急出口通道，時間許可時應將使用過的面罩移除或放置適當位置。",
