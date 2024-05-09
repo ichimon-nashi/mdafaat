@@ -183,17 +183,33 @@ ul li {
     align-items: center;
     margin: auto;
     text-align: center;
+    outline: 1px dotted var(--blue);
+    font-size: 1.1rem;
+    margin: 0.8rem auto;
+}
+
+.colspan2 {
+    min-width: 66%;
 }
 
 .gridRow .grid-col {
     flex: 1;
     margin: 0.5rem;
-    /* border: 0.1px solid var(--darkBlue); */
 }
 
-.grid-col div {
+.grid-col .row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.grid-col .row * {
+    padding: 0.5rem;
+}
+
+.grid-col .row span {
+    outline: 1px solid var(--darkBlue);
 }
 
 @media only screen and (max-width:500px) {
