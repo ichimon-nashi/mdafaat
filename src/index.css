@@ -181,7 +181,6 @@ ul li {
     display: flex;
     width: 85%;
     align-items: center;
-    margin: auto;
     text-align: center;
     outline: 1px dotted var(--blue);
     font-size: 1.1rem;
@@ -225,5 +224,11 @@ ul li {
     .crewAction {
         font-size: 1rem;
         margin: 1rem 0 1rem 0;
+    }
+    .gridRow {
+        width: 100%;
+    }
+    .grid-col {
+        font-size: 0.7rem;
     }
 }
