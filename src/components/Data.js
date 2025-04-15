@@ -45,17 +45,17 @@ export const jcrmData = [
 ]
 
 import jsep1 from "../assets/images/jsep1.jpg";
-import jsep2 from "../assets/images/jsep2.png";
+import jsep2 from "../assets/images/jsep2.jpg";
 import jsep3 from "../assets/images/jsep3.jpg";
 import jsep4 from "../assets/images/jsep4.jpg";
-import jsep5 from "../assets/images/jsep5.png";
+import jsep5 from "../assets/images/jsep5.jpg";
 import jsep6 from "../assets/images/jsep6.jpg";
 
 export const jsepData = [
     {
         id: "jsep01",
         title: "Scenario 1",
-        description: "AE9898北/金航班，航程中客艙中段窗戶及部份機身突然脫離機身，造成客艙失壓，航機實施緊急下降。",
+        description: "AE8989北/金航班，航程中窗型出口發出嘶嘶聲，隨即客艙失壓，航機實施緊急下降。",
         imgSrc: jsep1,
         action: [
             "CCOM對應章節: Ch.4.4/9.4",
@@ -64,15 +64,15 @@ export const jsepData = [
             "ATR喊:『留在座位上，繫好安全帶 REMAIN SEATED，FASTEN SEAT BELT』; B738喊:『拉下面罩，罩住口鼻，繫好安全帶 PLACE MASK ON NOSE AND MOUTH, FASTEN THE SEATBELT』。",
             "抵達安全高度『CABIN CREW 10,000』。",
             "攜帶POB巡艙及廁所，向座艙長/前艙回報: 1️⃣ 飛機狀況 2️⃣ 旅客狀況 3️⃣ 組員狀況。",
-            "爲避免阻礙緊急出口通道，時間許可時應將使用過的面罩移除或放置適當位置。",
+            "為避免阻礙緊急出口通道，時間許可時應將使用過的面罩移除或放置適當位置。",
         ]
     }, {
         id: "jsep02",
         title: "Scenario 2",
-        description: "AE8888台北/南竿航班，航班降落後，因天氣不佳(風切)致班機(左起落架撞擊損壞)衝出跑道。\n情境1:左翼折斷起火\n情境2:不安全情境撤離\n情境3:航機衝入側邊排水道，機尾翹起，逃生窗懸空於排水道之上」。",
+        description: "AE8888台北/南竿，航程中接獲機長通知1號發動機失效，為確保安全降落，立即啟動緊急程序。",
         imgSrc: jsep2,
         action: [
-            "CCOM對應章節: Ch.4.4 / 9.10",
+            "CCOM對應章節: Ch.4.4 / 9.1",
             "前艙下達:『ATTENTION CREW ON STATION, ATTENTION CREW ON STATION』。",
             "組員喊:『留在座位上，保持冷靜 REMAIN SEATED, STAY CALM』。",
             "(情境1: 組員/旅客發現機翼起火):",
@@ -85,7 +85,7 @@ export const jsepData = [
     }, {
         id: "jsep03",
         title: "Scenario 3",
-        description: "AE9999 武漢/台北航班，降落前因起落架失效無法放下，機長指示15分鐘後將迫降松山機場，落地撞擊後航機斷電，燈光與駕客艙通聯系統全面失效。",
+        description: "AE9999 台東/台北航班，降落前因起落架失效無法放下，機長指示15分鐘後將迫降松山機場，落地撞擊後航機斷電，燈光與駕客艙通聯系統全面失效。",
         imgSrc: jsep3,
         action: [
             "CCOM對應章節: Ch.4.4 / 9.1 / 9.2.1(ATR) / 9.2.3(B738) / 9.5",
@@ -102,7 +102,7 @@ export const jsepData = [
     }, {
         id: "jsep04",
         title: "Scenario 4",
-        description: "AE8899北/金航班，前艙I-PAD起火燃燒，駕艙內佈滿煙霧。",
+        description: "AE9988金/北航班，16A 旅客置於行李櫃內之IPAD起火燃燒，客艙內佈滿煙霧。",
         imgSrc: jsep4,
         action: [
             "CCOM對應章節: Ch.4.4 / 9.3",
@@ -116,7 +116,7 @@ export const jsepData = [
     }, {
         id: "jsep05",
         title: "Scenario 5",
-        description: "AE8989 澎/北航班，航機因雙發動機失效， 機長指示10分鐘後海上迫降。\nAE8989 澎/北航班，旅客人數50人含三名嬰兒，發生無預警水上撤離。(嬰兒旅客作業) ",
+        description: "AE7979 高/澎航班，旅客人數70，降落前航機因雙發動機失效， 機長指示10分鐘後海上迫降。",
         imgSrc: jsep5,
         action: [
             "CCOM對應章節: Ch.3.7 / 4.4 / 9.2.2(ATR) / 9.2.4(B738) / 9.5",
@@ -137,7 +137,7 @@ export const jsepData = [
     }, {
         id: "jsep06",
         title: "Scenario 6",
-        description: "AE9988 中/胡航班，航程中遭遇強烈無預警晴空亂流，客艙二名組員受傷， 一名慣用手骨折無法正常執行任務， 一名失去生命徵象。",
+        description: "AE8877台中/花蓮航班，前艙組員通知飛航組員失能，請求組員前往協助 。",
         imgSrc: jsep6,
         action: [
             "CCOM對應章節: Ch.4.4 / 7.15 / 8.2 / 8.6",
