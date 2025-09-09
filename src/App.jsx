@@ -1,37 +1,161 @@
 import React, { useState } from 'react';
 import { Shuffle, RotateCcw } from 'lucide-react';
+import deckBack from "./assets/deckback.png";
 
 const CabinCrewTrainer = () => {
   const cardData = {
     emergency: [
-      { id: 1, title: "客艙火災", description: "🔥 頭上置物櫃發現火焰！", code: "E-01", conflicts: [2, 6] },
-      { id: 2, title: "客艙失壓", description: "💨 客艙壓力急速下降！", code: "E-02", conflicts: [1, 4, 6, 8] },
-      { id: 3, title: "亂流受傷", description: "🌪️ 旅客因劇烈亂流受傷！", code: "E-03", conflicts: [] },
-      { id: 4, title: "電子設備起火", description: "📱💥 手機電池爆炸！", code: "E-04", conflicts: [2] },
-      { id: 5, title: "醫療緊急事件", description: "💔 旅客心臟病發作！", code: "E-05", conflicts: [] },
-      { id: 6, title: "客艙冒煙", description: "☁️ 不明煙霧正在擴散！", code: "E-06", conflicts: [2] },
-      { id: 7, title: "組員失能", description: "😵 空服員失去意識！", code: "E-07", conflicts: [] },
-      { id: 8, title: "迫降準備", description: "🛬 緊急迫降即將進行！", code: "E-08", conflicts: [1, 2, 6] }
+      {
+        id: 1,
+        title: "客艙火災",
+        description: "置物櫃旅客行李起火！",
+        code: "E-01",
+        conflicts: [2, 6]
+      },
+      {
+        id: 2,
+        title: "客艙失壓",
+        description: "客艙破洞造成快速失壓！",
+        code: "E-02",
+        conflicts: [1, 4, 6, 8]
+      },
+      {
+        id: 3,
+        title: "亂流受傷",
+        description: "旅客因通過無預警亂流受傷！",
+        code: "E-03",
+        conflicts: []
+      },
+      {
+        id: 4,
+        title: "PED電子用品起火",
+        description: "手機電池發熱冒煙！",
+        code: "E-04",
+        conflicts: [2]
+      },
+      {
+        id: 5,
+        title: "醫療事件",
+        description: "旅客昏倒，無心跳！",
+        code: "E-05",
+        conflicts: []
+      },
+      {
+        id: 6,
+        title: "客艙冒煙",
+        description: "隱藏性火災，客艙冒煙！",
+        code: "E-06",
+        conflicts: [2]
+      },
+      {
+        id: 7,
+        title: "組員失能",
+        description: "前艙組員失能！",
+        code: "E-07",
+        conflicts: []
+      },
+      {
+        id: 8,
+        title: "CPP",
+        description: "雙引擎失效，準備迫降！",
+        code: "E-08",
+        conflicts: [1, 2, 6]
+      },
+      {
+        id: 9,
+        title: "滑出跑道",
+        description: "飛機滑出跑道！",
+        code: "E-09",
+        conflicts: [1, 2, 6]
+      }
     ],
     passenger: [
-      { id: 1, title: "酒醉鬧事", description: "🍺 醉酒旅客製造麻煩！", code: "P-01", conflicts: [5] },
-      { id: 2, title: "恐慌症發作", description: "😰 旅客過度換氣！", code: "P-02", conflicts: [] },
-      { id: 3, title: "語言障礙", description: "🗣️ 家庭使用不明語言！", code: "P-03", conflicts: [] },
-      { id: 4, title: "頑皮兒童", description: "🏃‍♂️ 孩童在走道奔跑！", code: "P-04", conflicts: [] },
-      { id: 5, title: "劫機威脅", description: "💀 旅客發出威脅！", code: "P-05", conflicts: [1] },
-      { id: 6, title: "過敏反應", description: "🤧 臉部快速腫脹！", code: "P-06", conflicts: [] },
-      { id: 7, title: "幽閉恐懼症", description: "😱 要求立即離開！", code: "P-07", conflicts: [] },
-      { id: 8, title: "奧客模式", description: "😤 要求見經理！", code: "P-08", conflicts: [] }
+      {
+        id: 1,
+        title: "酒醉鬧事",
+        description: "醉酒旅客開始鬧事！",
+        code: "P-01",
+        conflicts: [5]
+      },
+      {
+        id: 2,
+        title: "恐慌症發作",
+        description: "旅客過度換氣！",
+        code: "P-02",
+        conflicts: []
+      },
+      {
+        id: 3,
+        title: "語言障礙",
+        description: "外籍旅客聽不懂中英文！",
+        code: "P-03",
+        conflicts: []
+      },
+      {
+        id: 4,
+        title: "頑皮兒童",
+        description: "小孩在走道奔跑！",
+        code: "P-04",
+        conflicts: []
+      },
+      {
+        id: 5,
+        title: "劫機威脅",
+        description: "旅客發出威脅！",
+        code: "P-05",
+        conflicts: [1]
+      },
+      {
+        id: 6,
+        title: "密閉恐懼症",
+        description: "要開啟逃生窗！",
+        code: "P-06",
+        conflicts: []
+      },
+      {
+        id: 7,
+        title: "身心障礙旅客",
+        description: "有身心障礙旅客搭乘！",
+        code: "P-07",
+        conflicts: []
+      },
     ],
     equipment: [
-      { id: 1, title: "廣播系統故障", description: "📢❌ 無法與客艙通訊！", code: "Q-01", conflicts: [] },
-      { id: 2, title: "廚房起火", description: "🔥🍽️ 烤箱冒火花和煙霧！", code: "Q-02", conflicts: [2] },
-      { id: 3, title: "照明故障", description: "💡❌ 客艙陷入黑暗！", code: "Q-03", conflicts: [] },
-      { id: 4, title: "廁所門卡死", description: "🚽🔒 旅客被困在裡面！", code: "Q-04", conflicts: [] },
-      { id: 5, title: "氧氣系統故障", description: "😷❌ 面罩無法正常釋放！", code: "Q-05", conflicts: [] },
-      { id: 6, title: "艙門異常", description: "🚪💨 緊急出口發出異聲！", code: "Q-06", conflicts: [] },
-      { id: 7, title: "螢幕冒火花", description: "📺⚡ 娛樂系統短路！", code: "Q-07", conflicts: [] },
-      { id: 8, title: "溫度異常", description: "🌡️🔥 客艙溫度危險上升！", code: "Q-08", conflicts: [] }
+      {
+        id: 1,
+        title: "PA/INT系統故障",
+        description: "無法正常廣播或與前艙通話！",
+        code: "Q-01",
+        conflicts: []
+      },
+      {
+        id: 3,
+        title: "電力系統故障",
+        description: "客艙陷入黑暗！",
+        code: "Q-03",
+        conflicts: []
+      },
+      {
+        id: 4,
+        title: "廁所門卡死",
+        description: "旅客被困在裡面！",
+        code: "Q-04",
+        conflicts: []
+      },
+      {
+        id: 5,
+        title: "氧氣系統故障",
+        description: "面罩無法正常釋放！",
+        code: "Q-05",
+        conflicts: []
+      },
+      {
+        id: 6,
+        title: "艙門異常",
+        description: "緊急出口無法開啟！",
+        code: "Q-06",
+        conflicts: []
+      },
     ]
   };
 
@@ -215,11 +339,7 @@ const CabinCrewTrainer = () => {
       >
         {isInDeck ? (
           <div className="deck-content">
-            <div className="deck-back-design">
-              <div className="airplane-icon">✈️</div>
-              <div className="deck-title">CABIN CREW</div>
-              <div className="deck-subtitle">CRISIS CARDS</div>
-            </div>
+            <img src={deckBack} alt="Deck Back" className="deck-image" />
           </div>
         ) : (
           <>
@@ -272,10 +392,10 @@ const CabinCrewTrainer = () => {
         <header className="header">
           <h1 className="title">
             <span className="title-accent">♠</span>
-            空服員危機處理卡牌
+            客艙組員情境演練卡牌
             <span className="title-accent">♠</span>
           </h1>
-          <p className="subtitle">🎰 專業緊急應變訓練 • 撲克牌風格 🎰</p>
+          <p className="subtitle">🎰 組員緊急應變訓練 • 撲克牌風格 🎰</p>
         </header>
 
         <div className="control-panel">
@@ -359,7 +479,7 @@ const CabinCrewTrainer = () => {
 
                 {shufflingCards.length > 0 && (
                   <div className="status-message">
-                    🔀 荷官洗牌中...
+                    🔀 洗牌中...
                   </div>
                 )}
 
