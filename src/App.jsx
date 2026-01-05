@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Shuffle, RotateCcw } from 'lucide-react';
+import { Shuffle, RotateCcw, Plus } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import deckBack from "./assets/deckback.png";
 
 const CabinCrewTrainer = () => {
@@ -162,8 +163,7 @@ const CabinCrewTrainer = () => {
   const [allDrawnCards, setAllDrawnCards] = useState([]);
   const [availableCards, setAvailableCards] = useState(cardData);
   const [dealingAnimation, setDealingAnimation] = useState(false);
-  const [shufflingCards, setShufflingCards] = useState([]);
-  const [cardBeingDealt, setCardBeingDealt] = useState(null);
+  const [shuffling, setShuffling] = useState(false);
 
   const canDrawCard = (newCard, existingCards, cardType) => {
     const existingIds = existingCards
@@ -192,57 +192,45 @@ const CabinCrewTrainer = () => {
     );
   };
 
-  const drawRandomCard = (cardType) => {
-    const availableForType = getAvailableCardsForType(cardType);
+  const getAllAvailableCards = () => {
+    const emergency = getAvailableCardsForType('emergency').map(card => ({ ...card, type: 'emergency' }));
+    const passenger = getAvailableCardsForType('passenger').map(card => ({ ...card, type: 'passenger' }));
+    const equipment = getAvailableCardsForType('equipment').map(card => ({ ...card, type: 'equipment' }));
+    return [...emergency, ...passenger, ...equipment];
+  };
 
-    if (availableForType.length === 0) {
+  const drawRandomCard = () => {
+    const allAvailable = getAllAvailableCards();
+
+    if (allAvailable.length === 0) {
       return;
     }
 
-    const randomCard = availableForType[Math.floor(Math.random() * availableForType.length)];
+    const randomCard = allAvailable[Math.floor(Math.random() * allAvailable.length)];
 
     const newCard = {
       ...randomCard,
-      type: cardType,
       originalId: randomCard.id,
       timestamp: Date.now(),
-      id: `${cardType}-${randomCard.id}-${Date.now()}`
+      id: `${randomCard.type}-${randomCard.id}-${Date.now()}`
     };
 
-    setCardBeingDealt(newCard);
-    setTimeout(() => {
-      setAllDrawnCards(prev => [...prev, newCard]);
-      setCardBeingDealt(null);
-    }, 600);
-  };
-
-  const createShuffleAnimation = () => {
-    const cards = [];
-    for (let i = 0; i < 8; i++) {
-      cards.push({
-        id: i,
-        x: Math.random() * 400 - 200,
-        y: Math.random() * 200 - 100,
-        rotation: Math.random() * 360,
-        delay: i * 100
-      });
-    }
-    return cards;
+    setAllDrawnCards(prev => [...prev, newCard]);
   };
 
   const dealDefaultScenario = async () => {
-    const shuffleCards = createShuffleAnimation();
-    setShufflingCards(shuffleCards);
-
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setShufflingCards([]);
-
+    setShuffling(true);
     setDealingAnimation(true);
 
-    const cardTypes = ['emergency', 'passenger', 'equipment'];
-    let dealDelay = 500;
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setShuffling(false);
 
-    for (const cardType of cardTypes) {
+    const cardTypes = ['emergency', 'passenger', 'equipment'];
+
+    for (let i = 0; i < cardTypes.length; i++) {
+      await new Promise(resolve => setTimeout(resolve, 600));
+
+      const cardType = cardTypes[i];
       const availableForType = getAvailableCardsForType(cardType);
 
       if (availableForType.length > 0) {
@@ -251,40 +239,38 @@ const CabinCrewTrainer = () => {
           ...randomCard,
           type: cardType,
           originalId: randomCard.id,
-          timestamp: Date.now() + dealDelay,
-          id: `${cardType}-${randomCard.id}-${Date.now()}-${dealDelay}`
+          timestamp: Date.now(),
+          id: `${cardType}-${randomCard.id}-${Date.now()}`
         };
 
-        setTimeout(() => {
-          setCardBeingDealt(newCard);
-          setTimeout(() => {
-            setAllDrawnCards(prev => [...prev, newCard]);
-            setCardBeingDealt(null);
-          }, 400);
-        }, dealDelay);
-
-        dealDelay += 600;
+        setAllDrawnCards(prev => [...prev, newCard]);
       }
     }
 
-    setTimeout(() => {
-      setDealingAnimation(false);
-    }, dealDelay + 500);
+    setDealingAnimation(false);
   };
 
   const resetAll = () => {
     setAllDrawnCards([]);
     setAvailableCards(cardData);
     setDealingAnimation(false);
-    setShufflingCards([]);
-    setCardBeingDealt(null);
+    setShuffling(false);
   };
 
   const removeCard = (cardId) => {
     setAllDrawnCards(prev => prev.filter(card => card.id !== cardId));
   };
 
-  const PlayingCard = ({ card, onRemove = null, isBeingDealt = false, isInDeck = false, shuffleStyle = null }) => {
+  // Determine grid layout class based on card count
+  const getGridLayoutClass = () => {
+    const count = allDrawnCards.length;
+    if (count <= 6) return 'grid-3-col';
+    if (count <= 12) return 'grid-4-col';
+    if (count <= 20) return 'grid-5-col';
+    return 'grid-6-col';
+  };
+
+  const PlayingCard = ({ card, onRemove = null, isInDeck = false }) => {
     const getCardClassName = () => {
       if (isInDeck) {
         return `card deck-card`;
@@ -314,29 +300,8 @@ const CabinCrewTrainer = () => {
       }
     };
 
-    const getAnimationStyle = () => {
-      if (shuffleStyle) {
-        return {
-          transform: `translate(${shuffleStyle.x}px, ${shuffleStyle.y}px) rotate(${shuffleStyle.rotation}deg)`,
-          transition: `all 0.8s ease-in-out ${shuffleStyle.delay}ms`,
-          zIndex: 60
-        };
-      }
-      if (isBeingDealt) {
-        return {
-          transform: 'translate(200px, 100px) rotate(15deg) scale(1.1)',
-          transition: 'all 0.8s ease-out',
-          zIndex: 70
-        };
-      }
-      return {};
-    };
-
     return (
-      <div
-        className={`${getCardClassName()} ${isBeingDealt ? 'being-dealt' : ''}`}
-        style={getAnimationStyle()}
-      >
+      <div className={getCardClassName()}>
         {isInDeck ? (
           <div className="deck-content">
             <img src={deckBack} alt="Deck Back" className="deck-image" />
@@ -370,7 +335,7 @@ const CabinCrewTrainer = () => {
               <div className="card-code-footer">{card.code}</div>
             </div>
 
-            {onRemove && !isBeingDealt && (
+            {onRemove && (
               <button
                 onClick={() => onRemove(card.id)}
                 className="remove-button"
@@ -402,8 +367,8 @@ const CabinCrewTrainer = () => {
           <div className="controls-row">
             <button
               onClick={dealDefaultScenario}
-              disabled={dealingAnimation || shufflingCards.length > 0}
-              className={`button deal-button ${(dealingAnimation || shufflingCards.length > 0) ? 'disabled' : ''}`}
+              disabled={dealingAnimation || shuffling}
+              className={`button deal-button ${(dealingAnimation || shuffling) ? 'disabled' : ''}`}
             >
               <Shuffle className="button-icon" />
               發牌
@@ -420,27 +385,12 @@ const CabinCrewTrainer = () => {
             <div className="button-divider"></div>
 
             <button
-              onClick={() => drawRandomCard('emergency')}
-              disabled={getAvailableCardsForType('emergency').length === 0}
-              className={`button emergency-button ${getAvailableCardsForType('emergency').length === 0 ? 'disabled' : ''}`}
+              onClick={drawRandomCard}
+              disabled={getAllAvailableCards().length === 0}
+              className={`button start-button ${getAllAvailableCards().length === 0 ? 'disabled' : ''}`}
             >
-              ♦ 緊急 ({getAvailableCardsForType('emergency').length})
-            </button>
-
-            <button
-              onClick={() => drawRandomCard('passenger')}
-              disabled={getAvailableCardsForType('passenger').length === 0}
-              className={`button passenger-button ${getAvailableCardsForType('passenger').length === 0 ? 'disabled' : ''}`}
-            >
-              ♠ 旅客 ({getAvailableCardsForType('passenger').length})
-            </button>
-
-            <button
-              onClick={() => drawRandomCard('equipment')}
-              disabled={getAvailableCardsForType('equipment').length === 0}
-              className={`button equipment-button ${getAvailableCardsForType('equipment').length === 0 ? 'disabled' : ''}`}
-            >
-              ♣ 設備 ({getAvailableCardsForType('equipment').length})
+              <Plus className="button-icon" />
+              抽牌 ({getAllAvailableCards().length})
             </button>
 
             {allDrawnCards.length > 0 && (
@@ -454,50 +404,123 @@ const CabinCrewTrainer = () => {
         </div>
 
         <div className="game-area">
-          <div className="cards-container">
-            {allDrawnCards.map((card) => (
-              <PlayingCard
-                key={card.id}
-                card={card}
-                onRemove={removeCard}
-              />
-            ))}
+          {allDrawnCards.length === 0 ? (
+            <div className="deck-area">
+              <div className="deck-container">
+                <motion.div
+                  className="deck-base"
+                  animate={shuffling ? {
+                    rotateY: [0, 180, 360],
+                    scale: [1, 1.05, 1],
+                  } : {}}
+                  transition={{
+                    duration: 1.5,
+                    ease: "easeInOut",
+                    times: [0, 0.5, 1]
+                  }}
+                >
+                  <PlayingCard card={{}} isInDeck={true} />
+                </motion.div>
 
-            {allDrawnCards.length === 0 && (
-              <div className="deck-display">
-                <PlayingCard card={{}} isInDeck={true} />
+                <AnimatePresence>
+                  {shuffling && (
+                    <>
+                      {[...Array(8)].map((_, i) => {
+                        const angle = (i * 360) / 8;
+                        const radius = 200;
+                        return (
+                          <motion.div
+                            key={i}
+                            className="shuffle-card"
+                            initial={{ x: 0, y: 0, opacity: 0, scale: 1 }}
+                            animate={{
+                              x: [0, Math.cos(angle * Math.PI / 180) * radius, 0],
+                              y: [0, Math.sin(angle * Math.PI / 180) * radius, 0],
+                              opacity: [0, 1, 0],
+                              rotate: [0, 360 + (i * 45), 720],
+                              scale: [1, 0.95, 1]
+                            }}
+                            exit={{ opacity: 0 }}
+                            transition={{
+                              duration: 1.5,
+                              ease: "easeInOut",
+                              delay: i * 0.05
+                            }}
+                          >
+                            <PlayingCard card={{}} isInDeck={true} />
+                          </motion.div>
+                        );
+                      })}
+                    </>
+                  )}
+                </AnimatePresence>
 
-                {shufflingCards.map((shuffleCard) => (
-                  <div key={shuffleCard.id} className="shuffling-card">
-                    <PlayingCard
-                      card={{}}
-                      isInDeck={true}
-                      shuffleStyle={shuffleCard}
-                    />
-                  </div>
-                ))}
-
-                {shufflingCards.length > 0 && (
-                  <div className="status-message">
+                {shuffling && (
+                  <motion.div
+                    className="status-message"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                  >
                     🔀 洗牌中...
-                  </div>
+                  </motion.div>
                 )}
 
-                {dealingAnimation && (
-                  <div className="status-message">
+                {dealingAnimation && !shuffling && (
+                  <motion.div
+                    className="status-message"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                  >
                     🃏 發牌中...
-                  </div>
+                  </motion.div>
                 )}
               </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className={`cards-container ${getGridLayoutClass()}`}>
+              <AnimatePresence mode="popLayout">
+                {allDrawnCards.map((card) => (
+                  <motion.div
+                    key={card.id}
+                    initial={{
+                      x: 0,
+                      y: 0,
+                      scale: 0.5,
+                      opacity: 0,
+                      rotateZ: -20
+                    }}
+                    animate={{
+                      x: 0,
+                      y: 0,
+                      scale: 1,
+                      opacity: 1,
+                      rotateZ: 0
+                    }}
+                    exit={{
+                      scale: 0.5,
+                      opacity: 0,
+                      rotateZ: 20,
+                      transition: { duration: 0.3 }
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 260,
+                      damping: 20
+                    }}
+                    layout
+                  >
+                    <PlayingCard
+                      card={card}
+                      onRemove={removeCard}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          )}
         </div>
-
-        {cardBeingDealt && (
-          <div className="card-overlay">
-            <PlayingCard card={cardBeingDealt} isBeingDealt={true} />
-          </div>
-        )}
       </div>
     </div>
   );
